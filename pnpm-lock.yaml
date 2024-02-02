@@ -1,0 +1,27 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  rfc6902:
+    specifier: ^5.1.1
+    version: 5.1.1
+
+devDependencies:
+  typescript:
+    specifier: ^5.3.3
+    version: 5.3.3
+
+packages:
+
+  /rfc6902@5.1.1:
+    resolution: {integrity: sha512-8rKImbe8GTXJ7cl9v+sF3U0WQ9aaSBn4fEcGP1VJakWN335ufj75ctvWXEhrzecGRxXpY6pEFbcdWzesjV7bFg==}
+    dev: false
+
+  /typescript@5.3.3:
+    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true

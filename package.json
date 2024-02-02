@@ -1,0 +1,24 @@
+{
+  "name": "jsonkv-client",
+  "version": "1.0.0",
+  "description": "client for jsonkv-client",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jsonkv",
+    "jsonkv-server",
+    "rfc6901",
+    "rfc6902",
+    "json-patch",
+    "websocket"
+  ],
+  "author": "ilsubyeega",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "rfc6902": "^5.1.1"
+  }
+}
