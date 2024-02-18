@@ -3,9 +3,9 @@ import JsonKvClient from "./client";
 export class JsonKvListener<T> {
   private key: string;
   private listenOption: JsonKvListenOption;
-  private socket: WebSocket | null;
-  private reconnectTimeoutId: number | null;
-  private client: JsonKvClient;
+  private socket: WebSocket | undefined;
+  private reconnectTimeoutId: number | undefined;
+  private client: JsonKvClient | undefined;
 
   private data: T | undefined;
   private listeners: ((data: T | undefined) => void)[] = [];
@@ -49,6 +49,7 @@ export class JsonKvListener<T> {
 
     this.reconnectTimeoutId = setTimeout(() => {
       console.log("Reconnecting...");
+      if (!this.client) throw new Error("Client is not set");
       this.connect(this.client);
     }, this.listenOption.reconnectInterval);
   }
