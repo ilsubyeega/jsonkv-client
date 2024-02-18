@@ -21,5 +21,6 @@
   "dependencies": {
     "rfc6902": "^5.1.1"
   },
-  "main": "dist/index.js"
+  "main": "dist/index",
+  "types": "dist/index"
 }
