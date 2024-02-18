@@ -7,8 +7,8 @@ It was specifically created for use in some broadcasts.
 # currently not released.
 $ pnpm i jsonkv-client
 ```
-```js
-import { JsonKvClient } from 'jsonkv-client';
+```ts
+import { JsonKvClient, JsonKvListener } from 'jsonkv-client';
 
 const client = new JsonKvClient('baseUrl', 'secret');
 
@@ -22,13 +22,15 @@ const patchOp = await client.patch('key', [
   {op: 'add', path: '/-', value: {first: 'Raphael', age: 37}},
 ]);
 
-const keyListener = await client.listen('key', (value) => {
-  console.log('key value:', value);
-}, {
+const listener = new JsonKvListener('key', {
     mode: 'full',
     reconnectInterval: 1000,
 });
-keyListener.close();
+listener.connect(client);
+listener.listen(value => {
+  console.log('key value:', value);
+});
+listener.close();
 ```
 
 ## TODO

@@ -1,4 +1,3 @@
 import JsonKvClient from "./client";
-import { JsonKvWebSocket, JsonKvListenOption } from "./websocket";
-
-export { JsonKvClient, JsonKvWebSocket, JsonKvListenOption };
+import { JsonKvListener, JsonKvListenOption } from "./listener";
+export { JsonKvClient, JsonKvListener, JsonKvListenOption };

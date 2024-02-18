@@ -1,8 +1,7 @@
 import { Operation } from "rfc6902";
-import { JsonKvListenOption } from "./websocket";
 
 export default class JsonKvClient {
-  private baseUrl: string;
+  baseUrl: string;
   private secret: String;
   public fetchSettings: any = {
     cache: "no-cache",
@@ -90,14 +89,5 @@ export default class JsonKvClient {
     });
     const data = await response.json();
     return data;
-  }
-
-  /// Listen to changes of a key
-  async listen<T>(
-    key: string,
-    callback: (value: T) => void,
-    option: JsonKvListenOption | undefined
-  ): Promise<void> {
-    // TODO: Implement this using custom websocket class
   }
 }
