@@ -22,5 +22,9 @@
     "rfc6902": "^5.1.1"
   },
   "main": "dist/index",
-  "types": "dist/index"
+  "types": "dist/index",
+  "typings": "dist/index",
+  "directories": {
+    "lib": "src"
+  }
 }
