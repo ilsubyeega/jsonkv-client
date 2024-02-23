@@ -8,7 +8,7 @@ export declare class JsonKvListener<T> {
     private data;
     private listeners;
     constructor(key: string, option?: JsonKvListenOption);
-    connect(client: JsonKvClient): void;
+    connect(client: JsonKvClient, callback?: ((data: T | undefined) => void | undefined)): void;
     reconnect(): void;
     listen(callback: (data: T | undefined) => void): void;
     close(): void;

@@ -5,8 +5,11 @@ var JsonKvListener = /** @class */ (function () {
         this.key = key;
         this.listenOption = option;
     }
-    JsonKvListener.prototype.connect = function (client) {
+    JsonKvListener.prototype.connect = function (client, callback) {
         var _this = this;
+        if (callback === void 0) { callback = undefined; }
+        if (callback)
+            this.listen(callback);
         this.client = client;
         var url = client.baseUrl.replace("http://", "ws://").replace("https://", "wss://") +
             "/listen/" +
