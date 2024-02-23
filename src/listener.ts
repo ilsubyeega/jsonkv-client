@@ -15,7 +15,8 @@ export class JsonKvListener<T> {
     this.listenOption = option;
   }
 
-  connect(client: JsonKvClient) {
+  connect(client: JsonKvClient, callback: ((data: T | undefined) => void | undefined) = undefined) {
+    if (callback) this.listen(callback)
     this.client = client;
     var url =
       client.baseUrl.replace("http://", "ws://").replace("https://", "wss://") +

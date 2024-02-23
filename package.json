@@ -22,9 +22,9 @@
   "dependencies": {
     "rfc6902": "^5.1.1"
   },
-  "main": "dist/index",
-  "types": "dist/index",
-  "typings": "dist/index",
+  "main": "src/index",
+  "types": "src/index",
+  "typings": "src/index",
   "directories": {
     "lib": "src"
   }
