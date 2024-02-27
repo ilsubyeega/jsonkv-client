@@ -87,7 +87,7 @@ export class JsonKvListener<T> {
 
 export interface JsonKvListenOption {
   /// The mode of listening. "full" means the full data will be received on every change. "patch" means only the changed data will be received.
-  /// Default is "patch".
+  /// Default is "full".
   mode: "full" | "patch";
   /// The reconnect interval in milliseconds. Default is 5000 (5 seconds).
   reconnectInterval: number;
