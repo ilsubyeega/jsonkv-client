@@ -22,15 +22,13 @@ const patchOp = await client.patch('key', [
   {op: 'add', path: '/-', value: {first: 'Raphael', age: 37}},
 ]);
 
-const listener = new JsonKvListener('key', {
-    mode: 'full',
-    reconnectInterval: 1000,
+const listener = client.bulk_listen((l) => {
+  l.listen("overall", () => console.log("overall updated", overall));
 });
-listener.connect(client);
-listener.listen(value => {
-  console.log('key value:', value);
-});
-listener.close();
+
+setTimeout(() => {
+  console.log("overall yay", listener.get("overall"));
+}, 5000);
 ```
 
 ## TODO

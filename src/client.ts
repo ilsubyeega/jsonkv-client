@@ -1,4 +1,5 @@
 import { Operation } from "rfc6902";
+import { JsonKvListener } from "./listener";
 
 export default class JsonKvClient {
   baseUrl: string;
@@ -89,5 +90,16 @@ export default class JsonKvClient {
     });
     const data = await response.json();
     return data;
+  }
+
+  bulk_listen(
+    callback: (listener: JsonKvListener) => void,
+    connect: boolean = true
+  ) {
+    const listener = new JsonKvListener(this);
+    callback(listener);
+    if (connect) listener.connect();
+
+    return listener;
   }
 }

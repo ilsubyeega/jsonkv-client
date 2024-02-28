@@ -47,6 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var listener_1 = require("./listener");
 var JsonKvClient = /** @class */ (function () {
     function JsonKvClient(baseUrl, secret) {
         this.fetchSettings = {
@@ -168,6 +169,14 @@ var JsonKvClient = /** @class */ (function () {
                 }
             });
         });
+    };
+    JsonKvClient.prototype.bulk_listen = function (callback, connect) {
+        if (connect === void 0) { connect = true; }
+        var listener = new listener_1.JsonKvListener(this);
+        callback(listener);
+        if (connect)
+            listener.connect();
+        return listener;
     };
     return JsonKvClient;
 }());
