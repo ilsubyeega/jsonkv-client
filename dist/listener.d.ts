@@ -1,3 +1,4 @@
+import { Operation } from "rfc6902";
 import JsonKvClient from "./client";
 export type JsonKvEvent = "ready" | "error" | "disconnect";
 export declare class JsonKvListener {
@@ -18,6 +19,8 @@ export declare class JsonKvListener {
     listen<T>(key: string, callback: (data: T | undefined) => void): void;
     close(): void;
     on(event: JsonKvEvent, callback: (data: any) => void): void;
+    put<T>(key: string, value: T): void;
+    patch(key: string, value: Operation[]): void;
     private sendListeningKeys;
     private emitEvent;
     private openHandler;

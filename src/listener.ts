@@ -1,3 +1,4 @@
+import { Operation } from "rfc6902";
 import JsonKvClient from "./client";
 
 export type JsonKvEvent = "ready" | "error" | "disconnect";
@@ -115,6 +116,22 @@ export class JsonKvListener {
   /// Listen to events. The callback will be called when the event is emitted.
   on(event: JsonKvEvent, callback: (data: any) => void) {
     this.listeners.push([event, callback]);
+  }
+
+  put<T>(key: string, value: T) {
+    if (!this.socket || this.socket.readyState !== 1) {
+      throw new Error("WebSocket is not connected");
+    }
+
+    this.socket.send(JSON.stringify({ data: { key, value } }));
+  }
+
+  patch(key: string, value: Operation[]) {
+    if (!this.socket || this.socket.readyState !== 1) {
+      throw new Error("WebSocket is not connected");
+    }
+
+    this.socket.send(JSON.stringify({ patch: { key, value } }));
   }
 
   private sendListeningKeys() {

@@ -97,6 +97,18 @@ var JsonKvListener = /** @class */ (function () {
     JsonKvListener.prototype.on = function (event, callback) {
         this.listeners.push([event, callback]);
     };
+    JsonKvListener.prototype.put = function (key, value) {
+        if (!this.socket || this.socket.readyState !== 1) {
+            throw new Error("WebSocket is not connected");
+        }
+        this.socket.send(JSON.stringify({ data: { key: key, value: value } }));
+    };
+    JsonKvListener.prototype.patch = function (key, value) {
+        if (!this.socket || this.socket.readyState !== 1) {
+            throw new Error("WebSocket is not connected");
+        }
+        this.socket.send(JSON.stringify({ patch: { key: key, value: value } }));
+    };
     JsonKvListener.prototype.sendListeningKeys = function () {
         var _a;
         if (((_a = this.socket) === null || _a === void 0 ? void 0 : _a.readyState) === 1) {
