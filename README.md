@@ -2,9 +2,10 @@
 A simple client for [jsonkv-server](https://github.com/ilsubyeega/jsonkv-server). 
 It was specifically created for use in some broadcasts.
 
+https://www.npmjs.com/package/jsonkv-client
+
 ## Usage
 ```bash
-# currently not released.
 $ pnpm i jsonkv-client
 ```
 ```ts
