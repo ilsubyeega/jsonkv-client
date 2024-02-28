@@ -1,16 +1,15 @@
 import JsonKvClient from "./client";
-export declare class JsonKvListener<T> {
-    private key;
+export declare class JsonKvListener {
     private listenOption;
     private socket;
     private reconnectTimeoutId;
     private client;
     private data;
     private listeners;
-    constructor(key: string, option?: JsonKvListenOption);
-    connect(client: JsonKvClient, callback?: ((data: T | undefined) => void | undefined)): void;
+    constructor(option?: JsonKvListenOption);
+    connect(client: JsonKvClient): void;
     reconnect(): void;
-    listen(callback: (data: T | undefined) => void): void;
+    listen<T>(key: string, callback: (data: T | undefined) => void): void;
     close(): void;
     private messageHandler;
 }

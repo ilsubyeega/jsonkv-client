@@ -1,0 +1,5 @@
+const client = ...;
+client.bulk_listen(i => {
+    i.listen<Temp>('temp', msg => i = 2);
+    i.listen<Overall>('overall', msg => i = 3);
+})

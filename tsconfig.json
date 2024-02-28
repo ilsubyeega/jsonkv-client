@@ -1,12 +1,13 @@
 {
 	"compilerOptions": {
         "lib": ["es5", "es2015.promise", "dom", "es2015"],
+        "module": "commonjs",
         "target": "es5",
         "typeRoots": [
           "node_modules/@types"
         ],
         "outDir": "dist",
-        "module": "es2015",
+        "strict": true,
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
@@ -16,6 +17,7 @@
     },
     "exclude": [
         "node_modules",
+        "dist"
     ],
     "files": [
         "src/index.ts"

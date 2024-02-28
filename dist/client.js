@@ -1,3 +1,4 @@
+"use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -45,6 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var JsonKvClient = /** @class */ (function () {
     function JsonKvClient(baseUrl, secret) {
         this.fetchSettings = {
@@ -169,5 +171,5 @@ var JsonKvClient = /** @class */ (function () {
     };
     return JsonKvClient;
 }());
-export default JsonKvClient;
+exports.default = JsonKvClient;
 //# sourceMappingURL=client.js.map

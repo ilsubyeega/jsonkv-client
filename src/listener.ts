@@ -1,27 +1,24 @@
 import JsonKvClient from "./client";
 
-export class JsonKvListener<T> {
-  private key: string;
+export class JsonKvListener {
   private listenOption: JsonKvListenOption;
   private socket: WebSocket | undefined;
   private reconnectTimeoutId: number | undefined;
   private client: JsonKvClient | undefined;
 
-  private data: T | undefined;
-  private listeners: ((data: T | undefined) => void)[] = [];
+  private data: {
+    [key: string]: any | undefined;
+  } = {};
+  private listeners: [string, (data: any) => void | undefined][] = [];
 
-  constructor(key: string, option: JsonKvListenOption = default_listen_option) {
-    this.key = key;
+  constructor(option: JsonKvListenOption = default_listen_option) {
     this.listenOption = option;
   }
-
-  connect(client: JsonKvClient, callback: ((data: T | undefined) => void | undefined) = undefined) {
-    if (callback) this.listen(callback)
+  connect(client: JsonKvClient) {
     this.client = client;
     var url =
       client.baseUrl.replace("http://", "ws://").replace("https://", "wss://") +
-      "/listen/" +
-      this.key;
+      "/listen";
     this.socket = new WebSocket(url);
 
     this.socket.onopen = () => {
@@ -55,8 +52,8 @@ export class JsonKvListener<T> {
     }, this.listenOption.reconnectInterval);
   }
 
-  listen(callback: (data: T | undefined) => void) {
-    this.listeners.push(callback);
+  listen<T>(key: string, callback: (data: T | undefined) => void) {
+    this.listeners.push([key, callback]);
   }
 
   close() {
@@ -66,22 +63,53 @@ export class JsonKvListener<T> {
   }
 
   private messageHandler(message: any) {
+    if (!message) return;
+    if ("auth" in message) {
+      // send credentials
+      this.socket?.send(
+        JSON.stringify({ authenticate: { secret: this.client?.secret } })
+      );
+      return;
+    }
+    if ("error" in message) {
+      console.error("Error on jsonkv-client:", message.error.message);
+      return;
+    }
+
     const filtered = filterMessage(message);
     if (!filtered) return;
 
+    let key: string | undefined = undefined;
     if ("subscribed" in filtered) {
-      this.data = filtered.subscribed.value;
+      this.data[filtered.subscribed.key] = filtered.subscribed.value;
+      key = filtered.subscribed.key;
+      console.debug(
+        "Subscribed to key:",
+        filtered.subscribed.key,
+        "with value:",
+        filtered.subscribed.value
+      );
     } else if ("data" in filtered) {
       if (this.listenOption.mode === "full") {
-        this.data = filtered.data.value;
+        this.data[filtered.data.key] = filtered.data.value;
+        key = filtered.data.key;
+        console.debug(
+          "Received full data for key:",
+          filtered.data.key,
+          "with value:",
+          filtered.data.value
+        );
       } else {
         // todo: patch mode
       }
     }
 
-    this.listeners.forEach((listener) => {
-      listener(this.data);
-    });
+    if (key)
+      this.listeners
+        .filter((l) => l[0] == key)
+        .forEach((listener) => {
+          if (listener[1]) listener[1](this.data);
+        });
   }
 }
 

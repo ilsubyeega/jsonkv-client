@@ -2,7 +2,7 @@ import { Operation } from "rfc6902";
 
 export default class JsonKvClient {
   baseUrl: string;
-  private secret: String;
+  public secret: String;
   public fetchSettings: any = {
     cache: "no-cache",
   };

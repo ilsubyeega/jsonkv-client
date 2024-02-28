@@ -1,7 +1,7 @@
 import { Operation } from "rfc6902";
 export default class JsonKvClient {
     baseUrl: string;
-    private secret;
+    secret: String;
     fetchSettings: any;
     constructor(baseUrl: string, secret: String);
     list(): Promise<string[]>;
